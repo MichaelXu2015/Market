@@ -5,13 +5,13 @@ spring:
     restart:
       enabled: true
 server:
-  port: 7000
+  port: 10000
 eureka:
   client:
     register-with-eureka: false #是否将此实例注册到eureka server
     fetch-registry: false #是否从eureka server中获取实例信息
     service-url:
-      defalutZone: http://localhost:7000/eureka/
+      defalutZone: http://localhost:11000/eureka/
     eureka-server-total-connections: 200 #限制eureka client的连接数
   instance:
     hostname: localhost

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.michael.dao.OrderMapper">
+
+
+    <!-- 抽取通用查询字段 -->
+    <sql id="orderColumns">
+        order_no,user_id,amount,order_status
+    </sql>
+
+    <insert id="insertOrder">
+        INSERT INTO order_info(order_no,user_id,amount,order_status,create_time,update_time)
+        VALUES(#{orderNo},#{userId},#{amount},#{orderStatus},now(),now())
+    </insert>
+
+
+    <select id="getAllOrderInfo" resultType="com.michael.entity.OrderInfo">
+       SELECT <include refid="orderColumns"/> FROM order_info
+    </select>
+
+    <select id="getOrderInfoByUserId" resultType="com.michael.entity.OrderInfo">
+        SELECT <include refid="orderColumns"/> FROM order_info WHERE user_id=#{userId}
+    </select>
+
+    <select id="getOrderInfoByOrderNo" resultType="com.michael.entity.OrderInfo">
+        SELECT <include refid="orderColumns"/> FROM order_info WHERE order_no=#{orderNo}
+    </select>
+
+
+    <select id="getOrderInfoByTime" resultType="com.michael.entity.OrderInfo">
+        SELECT <include refid="orderColumns"/> FROM order_info WHERE create_time BETWEEN #{startTime}
+        AND #{endTime}
+    </select>
+
+
+
+</mapper>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.michael.provider.user.dao.UserMapper">
+<mapper namespace="com.michael.dao.UserMapper">
 
 
     <insert id="insertUser">
@@ -9,7 +9,7 @@
         VALUES(#{userName},#{password},#{userStatus},#{phoneNumber})
     </insert>
 
-   <select id="login" resultType="com.michael.common.entity.User">
+   <select id="login" resultType="com.michael.entity.User">
        SELECT * FROM user_info WHERE user_name=#{userName} AND password=#{password}
    </select>
 

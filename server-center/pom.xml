@@ -12,10 +12,7 @@
     <artifactId>server-center</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.michael</groupId>
             <artifactId>common</artifactId>
