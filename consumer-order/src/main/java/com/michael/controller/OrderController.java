@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.michael.entity.OrderInfo;
 import com.michael.service.OrderService;
 import com.michael.util.ServerResponse;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

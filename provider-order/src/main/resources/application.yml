@@ -38,3 +38,11 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+
+#SpringBoot2.0版本以上需要加上以下配置才能在hystrixDashboard页面里监听得到
+#在hystrixDashboard页面输入需要监视的微服务http://localhost:11001/actuator/hystrix.stream(11001订单服务提供者)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

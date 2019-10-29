@@ -11,7 +11,7 @@ eureka:
     register-with-eureka: false #是否将此实例注册到eureka server
     fetch-registry: false #是否从eureka server中获取实例信息
     service-url:
-      defalutZone: http://localhost:11000/eureka/
+      defalutZone: http://localhost:10000/eureka/
     eureka-server-total-connections: 200 #限制eureka client的连接数
   instance:
     hostname: localhost

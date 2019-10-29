@@ -2,6 +2,7 @@ package com.michael.controller;
 
 import com.michael.entity.User;
 import com.michael.service.UserService;
+import com.michael.util.UUIDUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class UserProviderController {
 
     @PostMapping("/insertUser")
     public Integer insertUser(@RequestBody User user) {
+        user.setUserId(UUIDUtil.createUserId());
         return userService.insertUser(user);
     }
 

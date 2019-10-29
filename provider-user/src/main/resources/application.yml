@@ -1,7 +1,7 @@
 
 #血的教训,一定不要用tab来空格!!!一定不要用tab来空格!!!一定不要用tab来空格!!!
 server:
-  port: 11000
+  port: 12000
 spring:
   application:
     name: provider-user

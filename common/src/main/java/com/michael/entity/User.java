@@ -46,6 +46,23 @@ public class User{
         this.userStatus = userStatus;
     }
 
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public BigDecimal getAccount() {
+        return account;
+    }
+
+    public void setAccount(BigDecimal account) {
+        this.account = account;
+    }
+
     public User() {
         super();
     }
@@ -53,10 +70,12 @@ public class User{
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", userStatus=" + userStatus +
+                ", account=" + account +
                 '}';
     }
 }
