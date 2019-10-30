@@ -2,7 +2,7 @@ package com.michael.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.michael.api.order.OrderApiService;
-import com.michael.entity.OrderInfo;
+import com.michael.entity.OrderMaster;
 import com.michael.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,28 +16,28 @@ public class OrderServiceImpl implements OrderService {
     OrderApiService orderApiService;
 
     @Override
-    public Integer insertOrder(OrderInfo orderInfo) {
+    public Integer insertOrder(OrderMaster orderInfo) {
        return orderApiService.insertOrder(orderInfo);
     }
 
     @Override
-    public PageInfo<OrderInfo> getAllOrderInfo(Integer curPage, Integer pageSize) {
+    public PageInfo<OrderMaster> getAllOrderInfo(Integer curPage, Integer pageSize) {
         return orderApiService.getAllOrderInfo(curPage,pageSize);
     }
 
     @Override
-    public PageInfo<OrderInfo> getOrderInfoByUserId(Integer curPage, Integer pageSize, String userId) {
+    public PageInfo<OrderMaster> getOrderInfoByUserId(Integer curPage, Integer pageSize, String userId) {
         return orderApiService.getOrderInfoByUserId(curPage,pageSize,userId);
     }
 
 
     @Override
-    public OrderInfo getOrderInfoByOrderNo(String orderNo) {
+    public OrderMaster getOrderInfoByOrderNo(String orderNo) {
         return orderApiService.getOrderInfoByOrderNo(orderNo);
     }
 
     @Override
-    public List<OrderInfo> getOrderInfoByTime(String startTime, String endTime) {
+    public List<OrderMaster> getOrderInfoByTime(String startTime, String endTime) {
        return orderApiService.getOrderInfoByTime(startTime,endTime);
     }
 

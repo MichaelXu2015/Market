@@ -1,28 +1,21 @@
 package com.michael.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 
+/**
+ * 一对多查询结果
+ * 一个订单的orderNo对应多个订单详情
+ */
+public class OrderMasterDetail {
 
-
-public class OrderInfo {
 
     private String orderNo;
     private String userId;
     private BigDecimal amount;
     private Integer orderStatus;
 
-
-    /**
-     * 转为json字符串时,忽略此字段
-     */
-    @JsonIgnore
-    private Date createTime;
-
-    @JsonIgnore
-    private Date updateTime;
-
+    private List<OrderDetail> orderDetails;
 
     public String getOrderNo() {
         return orderNo;
@@ -56,31 +49,23 @@ public class OrderInfo {
         this.orderStatus = orderStatus;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
     @Override
     public String toString() {
-        return "OrderInfo{" +
+        return "OrderMasterDetail{" +
                 "orderNo='" + orderNo + '\'' +
                 ", userId='" + userId + '\'' +
                 ", amount=" + amount +
                 ", orderStatus=" + orderStatus +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
+                ", orderDetails=" + orderDetails +
                 '}';
     }
 }

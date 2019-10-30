@@ -1,20 +1,20 @@
 package com.michael.service;
 
 import com.github.pagehelper.PageInfo;
-import com.michael.entity.OrderInfo;
+import com.michael.entity.OrderMaster;
 
 import java.util.List;
 
 public interface OrderService {
 
-    Integer insertOrder(OrderInfo orderInfo);
+    Integer insertOrder(OrderMaster orderInfo);
 
     //分页查询
-    PageInfo<OrderInfo> getAllOrderInfo(Integer curPage, Integer pageSize);
+    PageInfo<OrderMaster> getAllOrderInfo(Integer curPage, Integer pageSize);
 
-    PageInfo<OrderInfo> getOrderInfoByUserId(Integer curPage, Integer pageSize, String userId);
+    PageInfo<OrderMaster> getOrderInfoByUserId(Integer curPage, Integer pageSize, String userId);
 
-    OrderInfo getOrderInfoByOrderNo(String orderNo);
+    OrderMaster getOrderInfoByOrderNo(String orderNo);
 
-    List<OrderInfo> getOrderInfoByTime(String startTime, String endTime);
+    List<OrderMaster> getOrderInfoByTime(String startTime, String endTime);
 }

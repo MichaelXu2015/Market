@@ -1,0 +1,24 @@
+server:
+  port: 15000
+spring:
+  application:
+    name: market-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10000/eureka/
+  instance:
+    instance-id: market-zull15000
+    prefer-ip-address: true
+#下面的映射规则相当于浏览器输入http://localhost:150000/market/userapi/user/login
+#然后实际映射到了comsumer-user(http://localhost:120000/user/login)
+zuul:
+  ignored-services: "*" #禁止通过微服务名直接访问
+  prefix: /market
+  routes:
+    user: #此名称可以随便写最好以模块命名
+      serviceId: comsumer-users
+      path: /userapi/**
+    order:
+      serviceId: consumer-order
+      path: /orderapi/**

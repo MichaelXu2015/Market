@@ -2,7 +2,7 @@ package com.michael.api.order;
 
 import com.github.pagehelper.PageInfo;
 import com.michael.api.fallback.OrderApiServiceFallBack;
-import com.michael.entity.OrderInfo;
+import com.michael.entity.OrderMaster;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,19 +15,19 @@ import java.util.List;
 public interface OrderApiService {
 
     @PostMapping("/order/insertOrder")
-    Integer insertOrder(@RequestBody OrderInfo orderInfo);
+    Integer insertOrder(@RequestBody OrderMaster orderInfo);
 
     @GetMapping("/order/getAllOrderInfo/{curPage}/{pageSize}")
-    PageInfo<OrderInfo> getAllOrderInfo(@PathVariable("curPage") Integer curPage, @PathVariable("pageSize") Integer pageSize);
+    PageInfo<OrderMaster> getAllOrderInfo(@PathVariable("curPage") Integer curPage, @PathVariable("pageSize") Integer pageSize);
 
     @GetMapping("/order/getOrderInfoByUserId/{curPage}/{pageSize}/{userId}")
     PageInfo getOrderInfoByUserId(@PathVariable("curPage") Integer curPage, @PathVariable("pageSize") Integer pageSize,
                                          @PathVariable("userId") String userId);
 
     @GetMapping("/order/getOrderInfoByOrderNo/{orderNo}")
-    OrderInfo getOrderInfoByOrderNo(@PathVariable("orderNo") String orderNo);
+    OrderMaster getOrderInfoByOrderNo(@PathVariable("orderNo") String orderNo);
 
     @GetMapping("/order/getOrderInfoByTime/{startTime}/{endTime}")
-    List<OrderInfo> getOrderInfoByTime(@PathVariable("startTime") String startTime,
-                                              @PathVariable("endTime") String endTime);
+    List<OrderMaster> getOrderInfoByTime(@PathVariable("startTime") String startTime,
+                                         @PathVariable("endTime") String endTime);
 }

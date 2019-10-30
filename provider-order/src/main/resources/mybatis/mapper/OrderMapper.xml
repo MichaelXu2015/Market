@@ -15,24 +15,86 @@
     </insert>
 
 
-    <select id="getAllOrderInfo" resultType="com.michael.entity.OrderInfo">
-       SELECT <include refid="orderColumns"/> FROM order_info
+    <select id="getAllOrderInfo" resultType="com.michael.entity.OrderMaster">
+        SELECT
+        <include refid="orderColumns"/>
+        FROM order_info
     </select>
 
-    <select id="getOrderInfoByUserId" resultType="com.michael.entity.OrderInfo">
-        SELECT <include refid="orderColumns"/> FROM order_info WHERE user_id=#{userId}
+    <select id="getOrderInfoByUserId" resultType="com.michael.entity.OrderMaster">
+        SELECT
+        <include refid="orderColumns"/>
+        FROM order_info WHERE user_id=#{userId}
     </select>
 
-    <select id="getOrderInfoByOrderNo" resultType="com.michael.entity.OrderInfo">
-        SELECT <include refid="orderColumns"/> FROM order_info WHERE order_no=#{orderNo}
+    <select id="getOrderInfoByOrderNo" resultType="com.michael.entity.OrderMaster">
+        SELECT
+        <include refid="orderColumns"/>
+        FROM order_info WHERE order_no=#{orderNo}
     </select>
 
 
-    <select id="getOrderInfoByTime" resultType="com.michael.entity.OrderInfo">
-        SELECT <include refid="orderColumns"/> FROM order_info WHERE create_time BETWEEN #{startTime}
+    <select id="getOrderInfoByTime" resultType="com.michael.entity.OrderMaster">
+        SELECT
+        <include refid="orderColumns"/>
+        FROM order_info WHERE create_time BETWEEN #{startTime}
         AND #{endTime}
     </select>
 
+    <update id="updateOrderInfo" parameterType="com.michael.entity.OrderMaster">
+        <!-- if标签使用有误 -->
+      <!--  UPDATE order_info SET
+        <if test="_parameter !=null">
+            user_id=#{_parameter},
+        </if>
+        <if test="_parameter !=null">
+            amount=#{_parameter},
+        </if>
+        update_time=now()
+        WHERE order_no=#{orderNo}-->
+    </update>
+
+
+    <resultMap id="orderExpressMap" type="com.michael.entity.OrderExpressDetail">
+        <id column="order_no" property="orderNo"></id>
+        <result column="user_id" property="userId"></result>
+        <result column="amount" property="amount"></result>
+        <association property="orderExpress" javaType="com.michael.entity.OrderExpress">
+            <id column="express_id" property="expressId"></id>
+            <result column="order_no" property="orderNo"></result>
+            <result column="express_name" property="expressName"></result>
+            <result column="express_no" property="expressNo"></result>
+        </association>
+    </resultMap>
+
+    <select id="getOrderExpressDetailInfo" resultMap="orderExpressMap">
+        SELECT o.order_no,o.user_id,o.amount,o.order_status,e.express_id,e.express_name,e.express_no
+        FROM order_info AS o INNER JOIN order_express AS e ON o.order_no=e.order_no WHERE o.order_no=#{orderNo}
+    </select>
+
+
+    <resultMap id="orderDetailMap" type="com.michael.entity.OrderMasterDetail">
+        <id column="order_no" property="orderNo"></id>
+        <result column="user_id" property="userId"></result>
+        <result column="amount" property="amount"></result>
+        <result column="order_status" property="orderStatus"></result>
+        <!-- 一对多查询,orderDetails就是OrderMasterDetail里的字段 -->
+        <collection property="orderDetails" ofType="com.michael.entity.OrderDetail">
+            <id column="order_detail_no" property="orderDetailNo"></id>
+            <result column="order_no" property="orderNo"></result>
+            <result column="product_name" property="productName"></result>
+            <result column="brand_name" property="brandName"></result>
+            <result column="price" property="price"></result>
+        </collection>
+    </resultMap>
+
+    <select id="getOrderDetailInfo" resultMap="orderDetailMap">
+        SELECT o.order_no,o.user_id,o.amount,o.order_status,
+        od.order_detail_no,od.product_name,od.brand_name,od.price
+        FROM order_info AS o INNER JOIN
+        order_detail AS od ON o.order_no=od.order_no WHERE o.order_no=#{orderNo}
+
+    </select>
 
 
 </mapper>

@@ -1,9 +1,11 @@
 package com.michael.controller;
 
 import com.michael.entity.User;
+import com.michael.service.UserService;
+import com.michael.token.JWTTokenUtil;
 import com.michael.util.ServerResponse;
 import com.michael.util.ServerResponseCode;
-import com.michael.service.UserService;
+import com.michael.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class UserConsumerController {
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
+    JWTTokenUtil jwtTokenUtil = JWTTokenUtil.defaultUtil();
+
     @GetMapping("/hello")
     public String hello(){
         return "hello world";
@@ -31,7 +35,11 @@ public class UserConsumerController {
         User user = userService.login(userName, password);
         logger.info(" userName : "+userName+" password: "+password);
         if (user != null) {
-            return ServerResponse.createSuccessMsg(ServerResponseCode.LOGIN_SUCCESS.getCode(), user, ServerResponseCode.LOGIN_SUCCESS.getMsg());
+            UserVO userVO = new UserVO();
+            userVO.setUserId(user.getUserId());
+            userVO.setUserName(user.getUserName());
+            userVO.setToken(jwtTokenUtil.createToken(user.getUserName()));
+            return ServerResponse.createSuccessMsg(ServerResponseCode.LOGIN_SUCCESS.getCode(), userVO, ServerResponseCode.LOGIN_SUCCESS.getMsg());
         }
         return ServerResponse.createFailMsg("用户名或密码错误!");
     }

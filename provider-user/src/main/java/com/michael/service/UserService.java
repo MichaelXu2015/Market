@@ -1,5 +1,6 @@
 package com.michael.service;
 
+import com.michael.entity.TransferAccounts;
 import com.michael.entity.User;
 
 public interface UserService {
@@ -18,5 +19,8 @@ public interface UserService {
 
     //根据用户名删除用户
     Integer deleteUserByUserName(String userName);
+
+    //更新用户金额
+    Integer updateUserAccount(TransferAccounts transferAccounts);
 
 }

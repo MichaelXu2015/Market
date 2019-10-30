@@ -1,6 +1,8 @@
 package com.michael.dao;
 
-import com.michael.entity.OrderInfo;
+import com.michael.entity.OrderExpressDetail;
+import com.michael.entity.OrderMaster;
+import com.michael.entity.OrderMasterDetail;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.Date;
@@ -10,22 +12,26 @@ import java.util.List;
 public interface OrderMapper {
 
     /*增加订单*/
-    Integer insertOrder(OrderInfo orderInfo);
+    Integer insertOrder(OrderMaster orderInfo);
 
     /*获取所有订单,分页查找*/
-    List<OrderInfo> getAllOrderInfo();
+    List<OrderMaster> getAllOrderInfo();
 
     /*通过userId获取订单*/
-    List<OrderInfo> getOrderInfoByUserId(String userId);
+    List<OrderMaster> getOrderInfoByUserId(String userId);
 
     /*通过orderId获取订单*/
-    OrderInfo getOrderInfoByOrderNo(String orderNo);
+    OrderMaster getOrderInfoByOrderNo(String orderNo);
 
     /*通过时间范围条件查询,注意时间要传Date类型*/
-    List<OrderInfo> getOrderInfoByTime(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
+    List<OrderMaster> getOrderInfoByTime(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
 
+    OrderMasterDetail getOrderDetailInfo(String orderNo);
 
+    OrderExpressDetail getOrderExpressDetailInfo(String orderNo);
+
+    Integer updateOrderInfo(OrderMaster orderMaster);
 
 
 

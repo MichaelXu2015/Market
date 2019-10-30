@@ -9,6 +9,11 @@
         VALUES(#{userName},#{password},#{userStatus},#{phoneNumber})
     </insert>
 
+    <!-- 更新用户余额 -->
+    <update id="updateUserAccount">
+        UPDATE user_info SET account=account+#{money} WHERE user_name=#{userName}
+    </update>
+
    <select id="login" resultType="com.michael.entity.User">
        SELECT * FROM user_info WHERE user_name=#{userName} AND password=#{password}
    </select>

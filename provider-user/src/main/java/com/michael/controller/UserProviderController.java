@@ -1,5 +1,6 @@
 package com.michael.controller;
 
+import com.michael.entity.TransferAccounts;
 import com.michael.entity.User;
 import com.michael.service.UserService;
 import com.michael.util.UUIDUtil;
@@ -19,9 +20,9 @@ public class UserProviderController {
 
 
     @GetMapping("/login/{userName}/{password}")
-    public User login(@PathVariable("userName") String userName,@PathVariable("password") String password) {
-        User user = userService.login(userName,password);
-        logger.info(" UserProviderController userName : "+userName+" password : "+password);
+    public User login(@PathVariable("userName") String userName, @PathVariable("password") String password) {
+        User user = userService.login(userName, password);
+        logger.info(" UserProviderController userName : " + userName + " password : " + password);
         return user;
     }
 
@@ -32,7 +33,7 @@ public class UserProviderController {
     }
 
     @PutMapping("/updatePhoneNum")
-    public Integer updatePhoneNum(@RequestBody  User user) {
+    public Integer updatePhoneNum(@RequestBody User user) {
         return userService.updatePhoneNum(user);
     }
 
@@ -44,6 +45,12 @@ public class UserProviderController {
     @DeleteMapping("/deleteUserByUserName/{userName}")
     public Integer deleteUserByUserName(@PathVariable("userName") String userName) {
         return userService.deleteUserByUserName(userName);
+    }
+
+    @PostMapping("/updateUserAccount")
+    public Integer updateUserAccount(@RequestBody TransferAccounts transferAccounts) {
+        return userService.updateUserAccount(transferAccounts);
+
     }
 
 }

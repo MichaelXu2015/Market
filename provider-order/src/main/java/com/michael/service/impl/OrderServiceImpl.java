@@ -3,7 +3,9 @@ package com.michael.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.michael.dao.OrderMapper;
-import com.michael.entity.OrderInfo;
+import com.michael.entity.OrderExpressDetail;
+import com.michael.entity.OrderMaster;
+import com.michael.entity.OrderMasterDetail;
 import com.michael.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,23 +20,23 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
 
     @Override
-    public Integer insertOrder(OrderInfo orderInfo) {
+    public Integer insertOrder(OrderMaster orderInfo) {
        return orderMapper.insertOrder(orderInfo);
     }
 
     @Override
-    public PageInfo<OrderInfo> getAllOrderInfo(Integer curPage, Integer pageSize) {
+    public PageInfo<OrderMaster> getAllOrderInfo(Integer curPage, Integer pageSize) {
         PageHelper.startPage(curPage,pageSize);
-        List<OrderInfo> list = orderMapper.getAllOrderInfo();
-        PageInfo<OrderInfo> pageInfo = new PageInfo<>(list);
+        List<OrderMaster> list = orderMapper.getAllOrderInfo();
+        PageInfo<OrderMaster> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
     @Override
-    public PageInfo<OrderInfo> getOrderInfoByUserId(Integer curPage, Integer pageSize, String userId) {
+    public PageInfo<OrderMaster> getOrderInfoByUserId(Integer curPage, Integer pageSize, String userId) {
         PageHelper.startPage(curPage,pageSize);
-        List<OrderInfo> list = orderMapper.getOrderInfoByUserId(userId);
-        PageInfo<OrderInfo> pageInfo = new PageInfo<>(list);
+        List<OrderMaster> list = orderMapper.getOrderInfoByUserId(userId);
+        PageInfo<OrderMaster> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
@@ -42,13 +44,28 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public OrderInfo getOrderInfoByOrderNo(String orderNo) {
+    public OrderMaster getOrderInfoByOrderNo(String orderNo) {
         return orderMapper.getOrderInfoByOrderNo(orderNo);
     }
 
     @Override
-    public List<OrderInfo> getOrderInfoByTime(Date startTime, Date endTime) {
+    public List<OrderMaster> getOrderInfoByTime(Date startTime, Date endTime) {
         return orderMapper.getOrderInfoByTime(startTime,endTime);
+    }
+
+    @Override
+    public OrderMasterDetail getOrderDetailInfo(String orderNo) {
+        return orderMapper.getOrderDetailInfo(orderNo);
+    }
+
+    @Override
+    public OrderExpressDetail getOrderExpressDetailInfo(String orderNo) {
+        return orderMapper.getOrderExpressDetailInfo(orderNo);
+    }
+
+    @Override
+    public Integer updateOrderInfo(OrderMaster orderMaster) {
+        return orderMapper.updateOrderInfo(orderMaster);
     }
 
 

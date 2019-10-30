@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper {
 
+
+
+
     //登录
     User login(@Param("userName") String userName, @Param("password") String password);
 
@@ -21,4 +24,9 @@ public interface UserMapper {
 
     //根据用户名删除用户
     Integer deleteUserByUserName(String userName);
+
+    //更新用户金额
+    Integer updateUserAccount(@Param("userName") String userName,@Param("money") Double money);
+
+
 }

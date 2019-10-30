@@ -1,10 +1,9 @@
 package com.michael.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.michael.entity.OrderInfo;
+import com.michael.entity.OrderMaster;
 import com.michael.service.OrderService;
 import com.michael.util.ServerResponse;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class OrderController {
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @PostMapping("/insertOrder")
-    public ServerResponse insertOrder(@RequestBody OrderInfo orderInfo) {
+    public ServerResponse insertOrder(@RequestBody OrderMaster orderInfo) {
         Integer result = orderService.insertOrder(orderInfo);
         if(result >0){
             return ServerResponse.createSuccessMsg("增加订单成功");
@@ -32,7 +31,7 @@ public class OrderController {
 
     @GetMapping("/getAllOrderInfo/{curPage}/{pageSize}")
     public ServerResponse getAllOrderInfo(@PathVariable("curPage") Integer curPage, @PathVariable("pageSize") Integer pageSize) {
-        PageInfo<OrderInfo> orderInfoPageInfo = orderService.getAllOrderInfo(curPage,pageSize);
+        PageInfo<OrderMaster> orderInfoPageInfo = orderService.getAllOrderInfo(curPage,pageSize);
         if(orderInfoPageInfo.getList()!=null && orderInfoPageInfo.getList().size()!=0){
             return ServerResponse.createSuccessMsg(orderInfoPageInfo);
         }
@@ -44,7 +43,7 @@ public class OrderController {
     public ServerResponse getOrderInfoByUserId(@PathVariable("curPage") Integer curPage, @PathVariable("pageSize") Integer pageSize,
                                          @PathVariable("userId") String userId) {
 
-        PageInfo<OrderInfo> orderInfoPageInfo = orderService.getOrderInfoByUserId(curPage,pageSize,userId);
+        PageInfo<OrderMaster> orderInfoPageInfo = orderService.getOrderInfoByUserId(curPage,pageSize,userId);
         if(orderInfoPageInfo.getList()!=null && orderInfoPageInfo.getList().size()!=0){
             return ServerResponse.createSuccessMsg(orderInfoPageInfo);
         }
@@ -54,7 +53,7 @@ public class OrderController {
 
     @GetMapping("/getOrderInfoByOrderNo/{orderNo}")
     public ServerResponse getOrderInfoByOrderNo(@PathVariable("orderNo") String orderNo) {
-        OrderInfo orderInfo = orderService.getOrderInfoByOrderNo(orderNo);
+        OrderMaster orderInfo = orderService.getOrderInfoByOrderNo(orderNo);
         if(orderInfo!=null){
             return ServerResponse.createSuccessMsg(orderInfo);
         }
@@ -65,7 +64,7 @@ public class OrderController {
     public ServerResponse getOrderInfoByTime(@PathVariable("startTime") String startTime,
                                               @PathVariable("endTime") String endTime) {
         logger.info("服务消费者收到参数: startTime:  "+startTime+" endTime : "+endTime);
-        List<OrderInfo> list = orderService.getOrderInfoByTime(startTime,endTime);
+        List<OrderMaster> list = orderService.getOrderInfoByTime(startTime,endTime);
         if(list!=null && list.size()!=0){
             return ServerResponse.createSuccessMsg(list);
         }
